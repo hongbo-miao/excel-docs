@@ -17,3 +17,26 @@ There are many ways to build an add-in such as VBA, VSTO, and so on. Why do we p
 - An add-in built by Office.js is using the web technology. It is just a web app. Use any library you want! 
 
 > For VSTO, VBA development, please check [here](https://msdn.microsoft.com/en-us/library/fp179694.aspx).
+
+# Quick Start
+
+An add-in built by Office.js has two parts: the web app and a manifest file. The manifest file tells Office where should find the app.
+
+Let's see a simple app which changes the color of the range in Excel.
+
+```ts
+Excel.run(context => {
+  const range = context.workbook.getSelectedRange();
+  range.format.fill.color = 'blue';
+
+  return context.sync();
+});
+```
+
+`Excel.run()` executes a batch script that performs actions on the Excel object model. The batch commands include definitions of local JavaScript proxy objects and `sync()` methods that synchronize the state between local and Excel objects and promise resolution.
+
+The `run()` method takes in RequestContext and returns a promise (typically, just the result of context.sync()).
+
+> The advantage of batching requests in `Excel.run()` is that when the promise is resolved, any tracked range objects that were allocated during the execution will be automatically released. It is possible to run the batch operation outside of the `Excel.run()`. However, in such a scenario, any range object references needs to be manually tracked and managed.
+
+The `sync()` method, available on the request context, synchronizes the state between JavaScript proxy objects and real objects in Excel by executing instructions queued on the context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when synchronization is complete.
