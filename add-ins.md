@@ -24,7 +24,7 @@ An add-in built by Office.js has two parts: the web app and a manifest file. The
 
 Let's see a simple app which changes the color of the range in Excel.
 
-```ts
+```typescript
 Excel.run(context => {
   const range = context.workbook.getSelectedRange();
   range.format.fill.color = 'blue';
@@ -48,12 +48,14 @@ Let's install the playground for Ofifce.js - [Script Lab](https://store.office.c
 Once installing the Script Lab, create a new project.
 
 Change codes in the **Template** to
+
 ```html
 <button id="color">Color Me</button>
 ```
 
 Then change codes in the **Script** to
-```ts
+
+```typescript
 $("#color").click(changeColor);
 
 function changeColor() {
@@ -69,4 +71,85 @@ function changeColor() {
 Select a range in Excel and click "Color Me" button. If you see the color changes to blue.
 
 Congratulations you just finish your first add-in for Excel!
+
+## Build an Add-in with React
+
+### Step 1. Generate the app
+
+1. Generate the React project using **Create React App**.
+
+	If you never install [Create React App](https://github.com/facebookincubator/create-react-app) before, first install it globally.
+	
+	```bash
+	npm install -g create-react-app
+	```
+	
+	Then generate your React app by
+	
+	```bash
+	create-react-app my-addin
+	```
+
+2. Generate the manifest file using **YO Office**.
+
+	If you never install [Yeoman](https://github.com/yeoman/yo) and [YO Office](https://github.com/OfficeDev/generator-office) before, first install them globally.
+
+	```bash
+	npm install -g yo generator-office
+	```
+
+	Go to your app folder.
+	
+	```bash
+	cd my-addin
+	```
+	
+	
+	Generate the manifest file following the steps in the screenshot below.
+	
+	```bash
+	yo office
+	```
+
+	![Office](img/yo-office.png)
+	
+	You should be able to see your manifest file with the name ends with **manifest.xml**. 
+
+	
+	
+
+### Step 2. Run
+
+1. To run the add-in, you need side-load the add-in within the Excel application. The section below describes the way of side-loading of manifest file in different platforms.
+
+    - Windows
+    
+    	Follow [this tutorial](https://dev.office.com/docs/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins).
+
+    - macOS
+
+		Move the manifest file to the folder `/Users/{username}/Library/Containers/com.microsoft.Excel/Data/Documents/wef` (if the folder does not exist, create one)
+
+    - Excel Online
+
+		Click **Upload My Add-in** button to upload the manifest file.
+
+		![Office](img/excel-online-upload.png)
+
+
+2. Run the dev server though the terminal.
+
+    - Windows
+    
+        ```bash
+        set HTTPS=true&&npm start
+        ```
+    
+    -  macOS
+    
+        ```bash
+        HTTPS=true npm start
+        ```
+
+3. Open Excel and click your add-in to load.
 
