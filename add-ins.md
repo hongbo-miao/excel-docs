@@ -104,7 +104,6 @@ Congratulations you just finish your first add-in for Excel!
 	cd my-addin
 	```
 	
-	
 	Generate the manifest file following the steps in the screenshot below.
 	
 	```bash
@@ -114,9 +113,6 @@ Congratulations you just finish your first add-in for Excel!
 	![Office](img/yo-office.png)
 	
 	You should be able to see your manifest file with the name ends with **manifest.xml**. 
-
-	
-	
 
 ### Step 2. Run
 
@@ -137,7 +133,7 @@ Congratulations you just finish your first add-in for Excel!
 		![Office](img/excel-online-upload.png)
 
 
-2. Run the dev server though the terminal.
+2. Run the dev server through the terminal.
 
     - Windows
     
@@ -153,3 +149,78 @@ Congratulations you just finish your first add-in for Excel!
 
 3. Open Excel and click your add-in to load.
 
+
+## Build an Add-in with Angular
+
+### Step 1. Generate the app
+
+1. Generate the Angular project using **Angular CLI**.
+
+	If you never install [Angular CLI](https://github.com/angular/angular-cli) before, first install it globally.
+	
+	```bash
+	npm install -g @angular/cli
+	```
+	
+	Then generate your Angular app by
+	
+	```bash
+	ng new my-addin
+	```
+
+2. Generate the manifest file using **YO Office**.
+
+	If you never install [Yeoman](https://github.com/yeoman/yo) and [YO Office](https://github.com/OfficeDev/generator-office) before, first install them globally.
+
+	```bash
+	npm install -g yo generator-office
+	```
+
+	Go to your app folder.
+	
+	```bash
+	cd my-addin
+	```
+	
+	Generate the manifest file following the steps in the screenshot below.
+	
+	```bash
+	yo office
+	```
+
+	![Office](img/yo-office.png)
+	
+	You should be able to see your manifest file with the name ends with **manifest.xml**. 
+
+### Step 2. Run
+
+1. To run the add-in, you need side-load the add-in within the Excel application. The section below describes the way of side-loading of manifest file in different platforms.
+
+    - Windows
+    
+    	Follow [this tutorial](https://dev.office.com/docs/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins).
+
+    - macOS
+
+		Move the manifest file to the folder `/Users/{username}/Library/Containers/com.microsoft.Excel/Data/Documents/wef` (if the folder does not exist, create one)
+
+    - Excel Online
+
+		Click **Upload My Add-in** button to upload the manifest file.
+
+		![Office](img/excel-online-upload.png)
+
+
+2. Run the dev server through the terminal.
+    
+    ```bash
+    npm start
+    ```
+    
+    or
+    
+    ```bash
+    ng serve
+    ```
+
+3. Open Excel and click your add-in to load.
