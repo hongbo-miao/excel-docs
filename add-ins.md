@@ -59,12 +59,12 @@ Then change codes in the **Script** to
 $("#color").click(changeColor);
 
 function changeColor() {
-    Excel.run(context => {
-      const range = context.workbook.getSelectedRange();
-      range.format.fill.color = 'blue';
+  Excel.run(context => {
+    const range = context.workbook.getSelectedRange();
+    range.format.fill.color = 'blue';
 
-      return context.sync();
-    });
+    return context.sync();
+  });
 }
 ```
 
@@ -74,153 +74,181 @@ Congratulations you just finish your first add-in for Excel!
 
 ## Build an Add-in with React
 
-### Step 1. Generate the app
+### Step 1. Generate the React project using **Create React App**
 
-1. Generate the React project using **Create React App**.
+If you never install [Create React App](https://github.com/facebookincubator/create-react-app) before, first install it globally.
 
-	If you never install [Create React App](https://github.com/facebookincubator/create-react-app) before, first install it globally.
-	
-	```bash
-	npm install -g create-react-app
-	```
-	
-	Then generate your React app by
-	
-	```bash
-	create-react-app my-addin
-	```
+```bash
+npm install -g create-react-app
+```
 
-2. Generate the manifest file using **YO Office**.
+Then generate your React app by
 
-	If you never install [Yeoman](https://github.com/yeoman/yo) and [YO Office](https://github.com/OfficeDev/generator-office) before, first install them globally.
+```bash
+create-react-app my-addin
+```
 
-	```bash
-	npm install -g yo generator-office
-	```
+Once you have the app, open the **public/index.html**, add
 
-	Go to your app folder.
-	
-	```bash
-	cd my-addin
-	```
-	
-	Generate the manifest file following the steps in the screenshot below.
-	
-	```bash
-	yo office
-	```
+```html
+<script src="https://appsforoffice.microsoft.com/lib/beta/hosted/office.debug.js"></script>
+```
 
-	![Office](img/yo-office.png)
-	
-	You should be able to see your manifest file with the name ends with **manifest.xml**. 
+before `</head>` tag.
 
-### Step 2. Run
+Open **src/index.js**, add `Office.initialize` out of `ReactDOM.render(<App />, document.getElementById('root'));` like below:
 
-1. To run the add-in, you need side-load the add-in within the Excel application. The section below describes the way of side-loading of manifest file in different platforms.
+```typescript
+Office.initialize = () => {
+  ReactDOM.render(<App />, document.getElementById('root'));
+};
+```
 
-    - Windows
+### Step 2. Generate the manifest file using **YO Office**.
+
+If you never install [Yeoman](https://github.com/yeoman/yo) and [YO Office](https://github.com/OfficeDev/generator-office) before, first install them globally.
+
+```bash
+npm install -g yo generator-office
+```
+
+Go to your app folder.
+
+```bash
+cd my-addin
+```
+
+Generate the manifest file following the steps in the screenshot below.
+
+```bash
+yo office
+```
+
+![Office](img/yo-office.png)
+
+You should be able to see your manifest file with the name ends with **manifest.xml**.
+
+To run the add-in, you need side-load the add-in within the Excel application. Follow the way below to side-load the manifest file:
+
+- Windows
     
-    	Follow [this tutorial](https://dev.office.com/docs/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins).
+	Follow [this tutorial](https://dev.office.com/docs/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins).
 
-    - macOS
+- macOS
 
-		Move the manifest file to the folder `/Users/{username}/Library/Containers/com.microsoft.Excel/Data/Documents/wef` (if the folder does not exist, create one)
+	Move the manifest file to the folder `/Users/{username}/Library/Containers/com.microsoft.Excel/Data/Documents/wef` (if the folder does not exist, create one)
 
-    - Excel Online
+- Excel Online
 
-		Click **Upload My Add-in** button to upload the manifest file.
+	Click **Upload My Add-in** button to upload the manifest file.
 
-		![Office](img/excel-online-upload.png)
+	![Office](img/excel-online-upload.png)
 
+### Step 3. Run
 
-2. Run the dev server through the terminal.
+Run the dev server through the terminal.
 
-    - Windows
+- Windows
     
-        ```bash
-        set HTTPS=true&&npm start
-        ```
-    
-    -  macOS
-    
-        ```bash
-        HTTPS=true npm start
-        ```
+	```bash
+	set HTTPS=true&&npm start
+	```
 
-3. Open Excel and click your add-in to load.
+-  macOS
+    
+	```bash
+	HTTPS=true npm start
+	```
+
+Open Excel and click your add-in to load.
 
 
 ## Build an Add-in with Angular
 
-### Step 1. Generate the app
+### Step 1. Generate the Angular project using **Angular CLI**
 
-1. Generate the Angular project using **Angular CLI**.
+If you never install [Angular CLI](https://github.com/angular/angular-cli) before, first install it globally.
 
-	If you never install [Angular CLI](https://github.com/angular/angular-cli) before, first install it globally.
-	
-	```bash
-	npm install -g @angular/cli
-	```
-	
-	Then generate your Angular app by
-	
-	```bash
-	ng new my-addin
-	```
+```bash
+npm install -g @angular/cli
+```
 
-2. Generate the manifest file using **YO Office**.
+Then generate your Angular app by
 
-	If you never install [Yeoman](https://github.com/yeoman/yo) and [YO Office](https://github.com/OfficeDev/generator-office) before, first install them globally.
+```bash
+ng new my-addin
+```
 
-	```bash
-	npm install -g yo generator-office
-	```
+Once you have the app, open the **src/index.html**, add
 
-	Go to your app folder.
-	
-	```bash
-	cd my-addin
-	```
-	
-	Generate the manifest file following the steps in the screenshot below.
-	
-	```bash
-	yo office
-	```
+```html
+<script src="https://appsforoffice.microsoft.com/lib/beta/hosted/office.debug.js"></script>
+```
 
-	![Office](img/yo-office.png)
-	
-	You should be able to see your manifest file with the name ends with **manifest.xml**. 
+before `</head>` tag.
 
-### Step 2. Run
+Open **src/main.ts**, add `Office.initialize` out of `platformBrowserDynamic().bootstrapModule(AppModule);` like below:
 
-1. To run the add-in, you need side-load the add-in within the Excel application. The section below describes the way of side-loading of manifest file in different platforms.
+```typescript
+declare const Office: any;
 
-    - Windows
+Office.initialize = () => {
+  platformBrowserDynamic().bootstrapModule(AppModule);
+};
+```
+
+### Step 2. Generate the manifest file using **YO Office**.
+
+If you never install [Yeoman](https://github.com/yeoman/yo) and [YO Office](https://github.com/OfficeDev/generator-office) before, first install them globally.
+
+```bash
+npm install -g yo generator-office
+```
+
+Go to your app folder.
+
+```bash
+cd my-addin
+```
+
+Generate the manifest file following the steps in the screenshot below.
+
+```bash
+yo office
+```
+
+![Office](img/yo-office.png)
+
+You should be able to see your manifest file with the name ends with **manifest.xml**.
+
+To run the add-in, you need side-load the add-in within the Excel application. Follow the way below to side-load the manifest file:
+
+- Windows
     
-    	Follow [this tutorial](https://dev.office.com/docs/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins).
+	Follow [this tutorial](https://dev.office.com/docs/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins).
 
-    - macOS
+- macOS
 
-		Move the manifest file to the folder `/Users/{username}/Library/Containers/com.microsoft.Excel/Data/Documents/wef` (if the folder does not exist, create one)
+	Move the manifest file to the folder `/Users/{username}/Library/Containers/com.microsoft.Excel/Data/Documents/wef` (if the folder does not exist, create one)
 
-    - Excel Online
+- Excel Online
 
-		Click **Upload My Add-in** button to upload the manifest file.
+	Click **Upload My Add-in** button to upload the manifest file.
 
-		![Office](img/excel-online-upload.png)
+	![Office](img/excel-online-upload.png)
 
+### Step 3. Run
 
-2. Run the dev server through the terminal.
-    
-    ```bash
-    npm start
-    ```
-    
-    or
-    
-    ```bash
-    ng serve
-    ```
+Run the dev server through the terminal.
 
-3. Open Excel and click your add-in to load.
+```bash
+npm start
+```
+
+or
+
+```bash
+ng serve
+```
+
+Open Excel and click your add-in to load.
