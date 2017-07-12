@@ -20,7 +20,7 @@ There are many ways to build an add-in such as VBA, VSTO, and so on. Why do we p
 
 # Quick Start
 
-An add-in built by Office.js has two parts: the web app and a manifest file. The manifest file tells Office where should find the app.
+An add-in built by Office.js has two parts: the **web app** and the **manifest file**. The manifest file tells Office where should find the app.
 
 Let's see a simple app which changes the color of the range in Excel.
 
@@ -258,3 +258,16 @@ ng serve
 ```
 
 Open Excel and click your add-in to load.
+
+
+## UI elements
+
+There are four kinds of UI elements you can use to build your add-in. They are
+
+- Command
+- Task pane
+- Dialog
+- Content
+
+![Office](img/ui-elements.png)
+
