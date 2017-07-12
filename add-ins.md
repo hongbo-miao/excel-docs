@@ -88,22 +88,6 @@ Then generate your React app by
 create-react-app my-addin
 ```
 
-Once you have the app, open the **public/index.html**, add
-
-```html
-<script src="https://appsforoffice.microsoft.com/lib/beta/hosted/office.debug.js"></script>
-```
-
-before `</head>` tag.
-
-Open **src/index.js**, add `Office.initialize` out of `ReactDOM.render(<App />, document.getElementById('root'));` like below:
-
-```typescript
-Office.initialize = () => {
-  ReactDOM.render(<App />, document.getElementById('root'));
-};
-```
-
 ### Step 2. Generate the manifest file using **YO Office**.
 
 If you never install [Yeoman](https://github.com/yeoman/yo) and [YO Office](https://github.com/OfficeDev/generator-office) before, first install them globally.
@@ -144,7 +128,25 @@ To run the add-in, you need side-load the add-in within the Excel application. F
 
 	![Office](img/excel-online-upload.png)
 
-### Step 3. Run
+### Step 3. Update the codes
+
+Open **public/index.html**, add
+
+```html
+<script src="https://appsforoffice.microsoft.com/lib/beta/hosted/office.debug.js"></script>
+```
+
+before `</head>` tag.
+
+Open **src/index.js**, add `Office.initialize` out of `ReactDOM.render(<App />, document.getElementById('root'));` like below:
+
+```typescript
+Office.initialize = () => {
+  ReactDOM.render(<App />, document.getElementById('root'));
+};
+```
+
+### Step 4. Run
 
 Run the dev server through the terminal.
 
@@ -179,24 +181,6 @@ Then generate your Angular app by
 ng new my-addin
 ```
 
-Once you have the app, open the **src/index.html**, add
-
-```html
-<script src="https://appsforoffice.microsoft.com/lib/beta/hosted/office.debug.js"></script>
-```
-
-before `</head>` tag.
-
-Open **src/main.ts**, add `Office.initialize` out of `platformBrowserDynamic().bootstrapModule(AppModule);` like below:
-
-```typescript
-declare const Office: any;
-
-Office.initialize = () => {
-  platformBrowserDynamic().bootstrapModule(AppModule);
-};
-```
-
 ### Step 2. Generate the manifest file using **YO Office**.
 
 If you never install [Yeoman](https://github.com/yeoman/yo) and [YO Office](https://github.com/OfficeDev/generator-office) before, first install them globally.
@@ -221,6 +205,8 @@ yo office
 
 You should be able to see your manifest file with the name ends with **manifest.xml**.
 
+Open it and replace all the ports in the generated manifest file from `3000` to `4200`.
+
 To run the add-in, you need side-load the add-in within the Excel application. Follow the way below to side-load the manifest file:
 
 - Windows
@@ -237,7 +223,27 @@ To run the add-in, you need side-load the add-in within the Excel application. F
 
 	![Office](img/excel-online-upload.png)
 
-### Step 3. Run
+### Step 3. Update the codes
+
+Open **src/index.html**, add
+
+```html
+<script src="https://appsforoffice.microsoft.com/lib/beta/hosted/office.debug.js"></script>
+```
+
+before `</head>` tag.
+
+Open **src/main.ts**, add `Office.initialize` out of `platformBrowserDynamic().bootstrapModule(AppModule);` like below:
+
+```typescript
+declare const Office: any;
+
+Office.initialize = () => {
+  platformBrowserDynamic().bootstrapModule(AppModule);
+};
+```
+
+### Step 4. Run
 
 Run the dev server through the terminal.
 
